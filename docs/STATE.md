@@ -11,7 +11,8 @@ Integration suite (HTTP + real Postgres): 13 passed.
 The local DB was migrated with `migrations/001_users.sql`, which deleted the 3 ownerless test notes.
 
 ## Next step
-Commit the work. Nothing has been committed in this repo yet. Run `/security-review` before any push.
+Committed locally (no remote yet). Before creating a GitHub repo and pushing, run `/security-review`.
+The project is on the resume as the Digital Sherpa capstone, so be ready to explain every layer.
 
 ## Later, not now
 - API Dockerfile + add the api service to docker-compose
