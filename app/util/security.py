@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 JWT_SECRET = os.environ["JWT_SECRET"]
+if len(JWT_SECRET) < 32:
+    # A short or placeholder secret lets anyone forge a token for any user.
+    raise RuntimeError("JWT_SECRET must be at least 32 characters; see .env.example")
 JWT_ALGORITHM = "HS256"
 TOKEN_TTL = timedelta(minutes=60)
 
