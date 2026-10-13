@@ -11,8 +11,9 @@ Integration suite (HTTP + real Postgres): 13 passed.
 The local DB was migrated with `migrations/001_users.sql`, which deleted the 3 ownerless test notes.
 
 ## Next step
-Committed locally (no remote yet). Before creating a GitHub repo and pushing, run `/security-review`.
-The project is on the resume as the Digital Sherpa capstone, so be ready to explain every layer.
+Public at https://github.com/JamesKevinJones/notes-service (pushed 2026-10-14).
+The security.yml PR check needs the CLAUDE_API_KEY repo secret, which Kevin sets himself.
+On the resume as the Digital Sherpa capstone, so be ready to explain every layer.
 
 ## Later, not now
 - API Dockerfile + add the api service to docker-compose
