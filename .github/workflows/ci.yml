@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      db:
+        image: postgres:17
+        # Throwaway database for this job only; same values as docker-compose.yml.
+        env:
+          POSTGRES_USER: notes
+          POSTGRES_PASSWORD: notes
+          POSTGRES_DB: notes
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U notes"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgresql://notes:notes@localhost:5432/notes
+      # Signs tokens that never leave this job. Not a real secret.
+      JWT_SECRET: ci-only-signing-key-0123456789abcdef
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Load the schema
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f schema.sql
+      - run: pytest -v
