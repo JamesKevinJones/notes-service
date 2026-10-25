@@ -6,6 +6,9 @@ else's.
 
 **Python 3.12+ · FastAPI · PostgreSQL 17 · psycopg 3 (raw SQL) · PyJWT · pytest · Docker**
 
+[![ci](https://github.com/JamesKevinJones/notes-service/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/JamesKevinJones/notes-service/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 ---
 
 ## The problem this exists to solve
@@ -168,6 +171,9 @@ interfere with each other and can be rerun against the same database.
 | Hashing | Round-trips, rejects a wrong password, salted (same password, different hashes) |
 | CRUD | Full create → read → list → patch → delete → 404 cycle, 404 on missing ids, empty title → 422 |
 
+[CI](.github/workflows/ci.yml) runs the same 13 tests on every push and pull request,
+against a throwaway Postgres 17 service container loaded from `schema.sql`.
+
 ---
 
 ## Project layout
@@ -200,3 +206,7 @@ accident:
 - **Pagination.** `GET /notes` returns everything. The `(user_id, created_at DESC)` index is already in place for keyset pagination.
 - **Migrations tooling.** Schema changes are hand-run SQL. Alembic comes next, before there's more than one environment.
 - **Containerized API.** Only Postgres runs in Docker today.
+
+## Licence
+
+[MIT](LICENSE)
